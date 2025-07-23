@@ -22,9 +22,9 @@ class Face_Register:
 
         # Tkinter GUI
         self.win = tk.Tk()
-        self.win.title("Face Register")
+        self.win.title("Register Your Face ")
 
-        # PLease modify window size here if needed
+        # window size 
         self.win.geometry("1000x500")
 
         # GUI left part
@@ -34,14 +34,14 @@ class Face_Register:
         self.frame_left_camera.pack()
 
         # GUI right part
-        self.frame_right_info = tk.Frame(self.win)
-        self.label_cnt_face_in_database = tk.Label(self.frame_right_info, text=str(self.existing_faces_cnt))
-        self.label_fps_info = tk.Label(self.frame_right_info, text="")
-        self.input_name = tk.Entry(self.frame_right_info)
+        self.frame_right_info = tk.Frame(self.win, bg="#232946", bd=2, relief="ridge")
+        self.label_cnt_face_in_database = tk.Label(self.frame_right_info, text=str(self.existing_faces_cnt), bg="#232946", fg="#eebbc3", font=("Helvetica", 13, "bold"))
+        self.label_fps_info = tk.Label(self.frame_right_info, text="", bg="#232946", fg="#eebbc3", font=("Helvetica", 13))
+        self.input_name = tk.Entry(self.frame_right_info, bg="#eebbc3", fg="#232946", font=("Helvetica", 13), insertbackground="#232946")
         self.input_name_char = ""
-        self.label_warning = tk.Label(self.frame_right_info)
-        self.label_face_cnt = tk.Label(self.frame_right_info, text="Faces in current frame: ")
-        self.log_all = tk.Label(self.frame_right_info)
+        self.label_warning = tk.Label(self.frame_right_info, bg="#232946", fg="#ffadad", font=("Helvetica", 13, "bold"))
+        self.label_face_cnt = tk.Label(self.frame_right_info, text="Faces in current frame: ", bg="#232946", fg="#eebbc3", font=("Helvetica", 13))
+        self.log_all = tk.Label(self.frame_right_info, bg="#232946", fg="#b8c1ec", font=("Helvetica", 11), wraplength=300, justify="left")
 
         self.font_title = tkFont.Font(family='Helvetica', size=20, weight='bold')
         self.font_step_title = tkFont.Font(family='Helvetica', size=15, weight='bold')
@@ -93,55 +93,63 @@ class Face_Register:
         self.label_cnt_face_in_database['text'] = str(self.existing_faces_cnt)
 
     def GUI_info(self):
+        # Title
         tk.Label(self.frame_right_info,
-                 text="Face register",
-                 font=self.font_title).grid(row=0, column=0, columnspan=3, sticky=tk.W, padx=2, pady=20)
+             text="Face Register",
+             font=self.font_title,
+             bg="#232946", fg="#fffffe").grid(row=0, column=0, columnspan=3, sticky=tk.W, padx=10, pady=(18, 10))
 
-        tk.Label(self.frame_right_info, text="FPS: ").grid(row=1, column=0, sticky=tk.W, padx=5, pady=2)
+    # FPS
+        tk.Label(self.frame_right_info, text="FPS:", bg="#232946", fg="#b8c1ec", font=("Helvetica", 12, "bold")).grid(row=1, column=0, sticky=tk.W, padx=10, pady=2)
         self.label_fps_info.grid(row=1, column=1, sticky=tk.W, padx=5, pady=2)
 
-        tk.Label(self.frame_right_info, text="Faces in database: ").grid(row=2, column=0, sticky=tk.W, padx=5, pady=2)
+    # Faces in database
+        tk.Label(self.frame_right_info, text="Faces in database:", bg="#232946", fg="#b8c1ec", font=("Helvetica", 12, "bold")).grid(row=2, column=0, sticky=tk.W, padx=10, pady=2)
         self.label_cnt_face_in_database.grid(row=2, column=1, sticky=tk.W, padx=5, pady=2)
 
-        tk.Label(self.frame_right_info,
-                 text="Faces in current frame: ").grid(row=3, column=0, columnspan=2, sticky=tk.W, padx=5, pady=2)
-        self.label_face_cnt.grid(row=3, column=2, columnspan=3, sticky=tk.W, padx=5, pady=2)
+    # Faces in current frame
+        tk.Label(self.frame_right_info, text="Faces in current frame:", bg="#232946", fg="#b8c1ec", font=("Helvetica", 12, "bold")).grid(row=3, column=0, sticky=tk.W, padx=10, pady=2)
+        self.label_face_cnt.grid(row=3, column=1, sticky=tk.W, padx=5, pady=2)
 
-        self.label_warning.grid(row=4, column=0, columnspan=3, sticky=tk.W, padx=5, pady=2)
+    # Warning label
+        self.label_warning.grid(row=4, column=0, columnspan=3, sticky=tk.W, padx=10, pady=2)
 
-        # Step 1: Clear old data
+    # Step 1: Clear old data
         tk.Label(self.frame_right_info,
-                 font=self.font_step_title,
-                 text="Step 1: Clear face photos").grid(row=5, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
+             font=self.font_step_title,
+             text="Step 1: Clear face photos",
+             bg="#232946", fg="#fffffe").grid(row=5, column=0, columnspan=3, sticky=tk.W, padx=10, pady=(18, 5))
         tk.Button(self.frame_right_info,
-                  text='Clear',
-                  command=self.GUI_clear_data).grid(row=6, column=0, columnspan=3, sticky=tk.W, padx=5, pady=2)
+              text='Clear',
+              command=self.GUI_clear_data,
+              bg="#eebbc3", fg="#232946", activebackground="#b8c1ec", activeforeground="#232946", relief="raised", font=("Helvetica", 11, "bold")).grid(row=6, column=0, columnspan=3, sticky=tk.W, padx=10, pady=2)
 
-        # Step 2: Input name and create folders for face
+    # Step 2: Input name and create folders for face
         tk.Label(self.frame_right_info,
-                 font=self.font_step_title,
-                 text="Step 2: Input name").grid(row=7, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
-
-        tk.Label(self.frame_right_info, text="Name: ").grid(row=8, column=0, sticky=tk.W, padx=5, pady=0)
-        self.input_name.grid(row=8, column=1, sticky=tk.W, padx=0, pady=2)
-
+             font=self.font_step_title,
+             text="Step 2: Input name",
+             bg="#232946", fg="#fffffe").grid(row=7, column=0, columnspan=3, sticky=tk.W, padx=10, pady=(18, 5))
+        tk.Label(self.frame_right_info, text="Name:", bg="#232946", fg="#b8c1ec", font=("Helvetica", 12, "bold")).grid(row=8, column=0, sticky=tk.W, padx=10, pady=2)
+        self.input_name.grid(row=8, column=1, sticky=tk.W, padx=5, pady=2)
         tk.Button(self.frame_right_info,
-                  text='Input',
-                  command=self.GUI_get_input_name).grid(row=8, column=2, padx=5)
+              text='Input',
+              command=self.GUI_get_input_name,
+              bg="#eebbc3", fg="#232946", activebackground="#b8c1ec", activeforeground="#232946", relief="raised", font=("Helvetica", 11, "bold")).grid(row=8, column=2, padx=5, pady=2)
 
-        # Step 3: Save current face in frame
+    # Step 3: Save current face in frame
         tk.Label(self.frame_right_info,
-                 font=self.font_step_title,
-                 text="Step 3: Save face image").grid(row=9, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
-
+             font=self.font_step_title,
+             text="Step 3: Save face image",
+             bg="#232946", fg="#fffffe").grid(row=9, column=0, columnspan=3, sticky=tk.W, padx=10, pady=(18, 5))
         tk.Button(self.frame_right_info,
-                  text='Save current face',
-                  command=self.save_current_face).grid(row=10, column=0, columnspan=3, sticky=tk.W)
+              text='Save current face',
+              command=self.save_current_face,
+              bg="#eebbc3", fg="#232946", activebackground="#b8c1ec", activeforeground="#232946", relief="raised", font=("Helvetica", 11, "bold")).grid(row=10, column=0, columnspan=3, sticky=tk.W, padx=10, pady=2)
 
-        # Show log in GUI
-        self.log_all.grid(row=11, column=0, columnspan=20, sticky=tk.W, padx=5, pady=20)
+    # Show log in GUI
+        self.log_all.grid(row=11, column=0, columnspan=20, sticky=tk.W, padx=10, pady=(18, 10))
 
-        self.frame_right_info.pack()
+        self.frame_right_info.pack(side=tk.RIGHT, fill=tk.Y, padx=0, pady=0)
 
     # Mkdir for saving photos and csv
     def pre_work_mkdir(self):
